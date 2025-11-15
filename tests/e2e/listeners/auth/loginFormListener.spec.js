@@ -24,7 +24,7 @@ test.describe("Login", () => {
     await page.getByRole("button", { name: "login" }).click();
 
     await expect(page.locator("#message-container")).toContainText(
-      "invalid email or password",
+      "Invalid email or password",
     );
   });
 });
