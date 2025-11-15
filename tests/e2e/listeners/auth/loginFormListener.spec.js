@@ -3,13 +3,13 @@ import { expect, test } from "@playwright/test";
 test.describe("Login", () => {
   test("user can login with valid credentials", async ({ page }) => {
     await page.goto("/login/");
-
     await page.locator('input[name="email"]').fill(process.env.TEST_USER_EMAIL);
     await page
       .locator('input[name="password"]')
       .fill(process.env.TEST_USER_PASSWORD);
 
     await page.getByRole("button", { name: "login" }).click();
+
     await page.waitForSelector("#logoutButton");
     await expect(page.getByRole("button", { name: "logout" })).toBeVisible();
   });
@@ -17,7 +17,6 @@ test.describe("Login", () => {
     page,
   }) => {
     await page.goto("/login/");
-
     await page.locator('input[name="email"]').fill(process.env.TEST_USER_EMAIL);
     await page.locator('input[name="password"]').fill("sammysmiles123");
 
