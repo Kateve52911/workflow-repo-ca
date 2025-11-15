@@ -1,0 +1,30 @@
+import { expect, test } from "@playwright/test";
+
+test.describe("Login", () => {
+  test("user can login with valid credentials", async ({ page }) => {
+    await page.goto("/login/");
+
+    await page.locator('input[name="email"]').fill(process.env.TEST_USER_EMAIL);
+    await page
+      .locator('input[name="password"]')
+      .fill(process.env.TEST_USER_PASSWORD);
+
+    await page.getByRole("button", { name: "login" }).click();
+
+    await expect(page.getByRole("button", { name: "logout" })).toBeVisible();
+  });
+  test("an error message is shown with invalid credentials", async ({
+    page,
+  }) => {
+    await page.goto("/login/");
+
+    await page.locator('input[name="email"]').fill(process.env.TEST_USER_EMAIL);
+    await page.locator('input[name="password"]').fill("haduffghgelknd");
+
+    await page.getByRole("button", { name: "login" }).click();
+
+    await expect(page.locator("#message-container")).toContainText(
+      "invalid email or password",
+    );
+  });
+});

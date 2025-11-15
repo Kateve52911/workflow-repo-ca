@@ -1,7 +1,7 @@
 node_modules/
 .idea/
 .eslintcache
-
+.env
 # Playwright
 /test-results/
 /playwright-report/
